@@ -7,6 +7,12 @@ A lightweight Windows desktop app for inspecting **Standard MIDI Files** (`.mid`
 ![UI](https://img.shields.io/badge/UI-MFC-lightgrey)
 ![Build](https://img.shields.io/badge/build-CMake-success)
 ![License](https://img.shields.io/badge/license-MIT-green)
+![Dependencies](https://img.shields.io/badge/dependencies-none-brightgreen)
+
+> **Built on raw WinAPI / MFC by design.** No Qt, no Electron, no .NET, no
+> third-party libraries. The result is a single, self-contained `.exe` that is
+> **fast, tiny, and dependency-free** - it starts instantly, uses very little
+> memory, and runs on any Windows machine with nothing to install.
 
 ---
 
@@ -30,6 +36,28 @@ A lightweight Windows desktop app for inspecting **Standard MIDI Files** (`.mid`
 - **Header read-out** - tempo (BPM), time signature, bar count, note count and total duration
 - **Correct timing math** - honors tempo and time-signature changes for tick to ms / bar conversions; track names decoded as UTF-8 with a system-codepage fallback (Cyrillic etc. display correctly)
 - **Self-contained** - static MFC + static CRT, so the `.exe` runs with no extra redistributables
+
+---
+
+## Why native (WinAPI / MFC)?
+
+This project is **deliberately** built directly on the Windows API through MFC,
+instead of a cross-platform UI framework. That choice is the point, not a
+limitation:
+
+- **Fast** - native windows and GDI drawing, double-buffered; no managed
+  runtime, no web engine, no JIT warm-up. The app opens and reacts instantly.
+- **Compact** - the whole program is a single small executable. There is no
+  bundled browser, no framework runtime, no extra DLLs to ship.
+- **Dependency-free** - no Qt, Electron, .NET, or other third-party libraries.
+  It links only standard Windows system libraries, with **static MFC** and the
+  **static CRT**, so the `.exe` runs on a clean Windows install with **nothing
+  to download or install** - just copy and run.
+- **Lightweight at runtime** - minimal memory footprint and no background
+  services.
+
+If you want a tiny, instant, self-contained Windows tool, this is exactly the
+kind of build that delivers it.
 
 ---
 
