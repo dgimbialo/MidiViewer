@@ -698,6 +698,23 @@ void CScoreView::DrawTickRuler(CDC* pDC)
     pDC->MoveTo(bar->x1, rulerY);
     pDC->LineTo(bar->x2, rulerY);
 
+    // Vertical beat-division lines through the note band, so the user can see
+    // exactly where each beat falls. Interior beats only (the bar edges are
+    // already drawn as solid bar lines). Dashed + light so notes stay readable.
+    {
+        LOGBRUSH lb{ BS_SOLID, RGB(170, 184, 212), 0 };
+        HPEN penBeat = ExtCreatePen(PS_COSMETIC | PS_DOT, 1, &lb, 0, nullptr);
+        HPEN oldBeat = (HPEN)pDC->SelectObject(penBeat);
+        for (int b = 1; b < num; ++b)
+        {
+            int x = TickToPixelX(bar->startTick + (long)b * ticksPerBeat);
+            pDC->MoveTo(x, topY);
+            pDC->LineTo(x, botY);
+        }
+        pDC->SelectObject(oldBeat);
+        DeleteObject(penBeat);
+    }
+
     // Beat marks + labels — RELATIVE to the bar (start at 0).
     pDC->SetTextColor(RGB(105, 116, 140));
     for (int b = 0; b <= num; ++b)
