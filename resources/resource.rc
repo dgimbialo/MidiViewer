@@ -1,0 +1,64 @@
+// Microsoft Visual C++ generated resource script.
+#include "resource.h"
+#include <winres.h>
+
+LANGUAGE LANG_ENGLISH, SUBLANG_DEFAULT
+
+/////////////////////////////////////////////////////////////////////////////
+// Icon
+
+IDI_MAINICON ICON "app.ico"
+
+/////////////////////////////////////////////////////////////////////////////
+// Menu
+
+IDR_MAINMENU MENU
+BEGIN
+    POPUP "&File"
+    BEGIN
+        MENUITEM "&Open...\tCtrl+O",    IDC_FILE_OPEN
+        MENUITEM SEPARATOR
+        MENUITEM "E&xit",               IDC_FILE_EXIT
+    END
+    POPUP "&View"
+    BEGIN
+        MENUITEM "Zoom &In\tCtrl++",    ID_VIEW_ZOOM_IN
+        MENUITEM "Zoom &Out\tCtrl+-",   ID_VIEW_ZOOM_OUT
+        MENUITEM "&Reset Zoom\tCtrl+0", ID_VIEW_ZOOM_RESET
+    END
+    POPUP "&Track"
+    BEGIN
+        MENUITEM "(no file open)", IDC_TRACK_FIRST, GRAYED
+    END
+    POPUP "&Help"
+    BEGIN
+        MENUITEM "&About Simple MIDI Viewer...", IDC_HELP_ABOUT
+    END
+END
+
+/////////////////////////////////////////////////////////////////////////////
+// Dialog: choose which track to view
+
+IDD_SELECT_TRACK DIALOGEX 0, 0, 240, 170
+STYLE DS_SETFONT | DS_MODALFRAME | DS_CENTER | WS_POPUP | WS_CAPTION | WS_SYSMENU
+CAPTION "Select Track"
+FONT 9, "Segoe UI", 400, 0, 0x0
+BEGIN
+    LTEXT           "This MIDI file contains several tracks. Choose one to view:",
+                    IDC_STATIC, 10, 8, 220, 18
+    LISTBOX         IDC_TRACK_LIST, 10, 30, 220, 108,
+                    LBS_NOINTEGRALHEIGHT | LBS_NOTIFY | WS_VSCROLL | WS_TABSTOP
+    DEFPUSHBUTTON   "Open", IDOK, 128, 148, 50, 14
+    PUSHBUTTON      "Cancel", IDCANCEL, 182, 148, 50, 14
+END
+
+/////////////////////////////////////////////////////////////////////////////
+// Accelerators
+
+IDR_MAINMENU ACCELERATORS
+BEGIN
+    "O",    IDC_FILE_OPEN,      VIRTKEY, CONTROL
+    VK_OEM_PLUS, ID_VIEW_ZOOM_IN,   VIRTKEY, CONTROL
+    VK_OEM_MINUS, ID_VIEW_ZOOM_OUT, VIRTKEY, CONTROL
+    "0",    ID_VIEW_ZOOM_RESET,  VIRTKEY, CONTROL
+END
